@@ -7034,8 +7034,8 @@ function updateBreadcrumb() {
       const eficienciaAuto = (totalGasto / totalPresupuesto * 100);
       const subejericicioAuto = totalPresupuesto - totalGasto;
       const tasaDuplicacionAuto = totalBeneficiarios / totalUnicos;
-      const coberturaRealAuto = (totalUnicos / 3740000 * 100);
-      const coberturaDuplicacionAuto = (totalBeneficiarios / 3740000 * 100);
+      const coberturaRealAuto = (totalUnicos / 1792300 * 100);
+      const coberturaDuplicacionAuto = (totalBeneficiarios / 1792300 * 100);
       const gastoPerCapitaAuto = totalGasto / totalBeneficiarios;
       const gastoPerCapitaUnicoAuto = totalGasto / totalUnicos;
       const inversionDiariaAuto = totalGasto / 365;
@@ -7180,7 +7180,7 @@ function updateBreadcrumb() {
         },
         {
           icon: '🎯',
-          nombre: 'COBERTURA PoblaciónAL',
+          nombre: 'COBERTURA POBLACIONAL',
           stats: [
             { icon: '🎯', value: coberturaReal + '%', label: 'Cobertura Real' },
             { icon: '👥', value: coberturaDuplicacion + '%', label: 'Con Duplicación' }
