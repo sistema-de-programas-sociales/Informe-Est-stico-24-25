@@ -67,7 +67,7 @@
             line-height: 1.6;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
         body::before {
@@ -271,11 +271,39 @@
         margin: 0;
     }
     
+    /* Wrapper principal con padding */
+    #main-wrapper {
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Contenedor con padding (todo excepto barra inferior) */
+    .padded-content {
+        padding: 20px;
+        padding-bottom: 0;
+    }
+    
+    /* ==========================================
+       LAYOUT PROFESIONAL - SIDEBAR + MAPA + BARRA INFERIOR
+       ========================================== */
+    
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    
     #content-wrapper {
         display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    .main-content-area {
+        display: grid;
+        grid-template-columns: 340px 1fr;
         flex: 1;
-        overflow: hidden;
-        gap: 0;
+        min-height: 0;
     }
     
     #container {
@@ -286,25 +314,21 @@
         display: none !important;
     }
     
-    #info-panel {
-        width: 420px;
-        min-width: 420px;
-        background:             radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    /* SIDEBAR PROFESIONAL */
+    .sidebar-professional {
+        background: #ffffff;
+        border-right: 1px solid #e0e0e0;
         display: flex;
         flex-direction: column;
-        z-index: 10;
         overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
     }
     
+    /* MAPA PROFESIONAL - Ocupa todo el espacio disponible */
     #map-container {
-        flex: 1;
-        position: sticky;
-        background: #f5f5f5;
-        border-radius: 0 0 15px 0;
-        max-height: 700px;
-        min-height: 500px;
+        background: #ffffff;
+        position: relative;
+        overflow: hidden;
     }
     
     #map {
@@ -312,28 +336,553 @@
         height: 100% !important;
     }
     
+    /* BARRA INFERIOR - Fuera del grid, ancho completo sin padding */
+    .bottom-municipalities-bar {
+        background: #ffffff;
+        border-top: 1px solid #e0e0e0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        flex-shrink: 0;
+        width: 100%;
+        margin: 0;
+    }
+    
+    /* Sección de controles */
+    .control-section {
+        padding: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .control-section-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+    }
+    
+    .control-group {
+        margin-bottom: 12px;
+    }
+    
+    .control-group:last-child {
+        margin-bottom: 0;
+    }
+    
+    .control-group label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 6px;
+    }
+    
+    .control-group select {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 13px;
+        background: #fff;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+    
+    .control-group select:hover {
+        border-color: #003f7f;
+    }
+    
+    .control-group select:focus {
+        outline: none;
+        border-color: #003f7f;
+        box-shadow: 0 0 0 3px rgba(0, 63, 127, 0.1);
+    }
+    
+    /* Stats Grid Profesional */
+    .stats-section {
+        padding: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .stats-professional {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .stat-pro {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+        text-align: center;
+        transition: all 0.2s;
+    }
+    
+    .stat-pro:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .stat-pro-value {
+        display: block;
+        font-size: 20px;
+        font-weight: 800;
+        color: #003f7f;
+        margin-bottom: 4px;
+    }
+    
+    .stat-pro-label {
+        display: block;
+        font-size: 10px;
+        color: #888;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Leyenda Profesional */
+    .legend-professional {
+        padding: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .legend-pro-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 12px;
+    }
+    
+    .gradient-professional {
+        height: 30px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, 
+            rgb(255, 59, 48) 0%,
+            rgb(255, 149, 0) 25%,
+            rgb(255, 204, 0) 50%,
+            rgb(52, 199, 89) 75%,
+            rgb(0, 199, 190) 100%
+        );
+        margin-bottom: 8px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .gradient-pro-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        color: #999;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    
+    .total-beneficiarios-pro {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #90caf9;
+    }
+    
+    .total-benef-number {
+        font-size: 24px;
+        font-weight: 900;
+        color: #003f7f;
+        display: block;
+    }
+    
+    .total-benef-label {
+        font-size: 10px;
+        color: #1976d2;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Sin Cobertura Profesional */
+    .no-coverage-section {
+        padding: 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .no-coverage-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+    
+    .no-coverage-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #333;
+    }
+    
+    .no-coverage-badge {
+        background: #fff3cd;
+        color: #856404;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 12px;
+        border: 1px solid #ffeaa7;
+    }
+    
+    .no-coverage-list {
+        background: #fafafa;
+        border: 1px solid #e8e8e8;
+        border-radius: 6px;
+        padding: 12px;
+        font-size: 11px;
+        line-height: 1.6;
+        color: #666;
+        max-height: 140px;
+        overflow-y: auto;
+    }
+    
+    /* Lista de Municipios Profesional - BARRA INFERIOR MUY COMPACTA (100px) */
+    .municipalities-section {
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+    }
+    
+    .municipalities-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+    }
+    
+    .municipalities-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+    }
+    
+    /* Tabs muy compactos */
+    .municipality-tabs {
+        display: flex;
+        gap: 4px;
+    }
+    
+    .municipality-tab {
+        padding: 3px 8px;
+        font-size: 9px;
+        font-weight: 600;
+        color: #888;
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .municipality-tab:hover {
+        color: #003f7f;
+        background: #e3f2fd;
+        border-color: #bbdefb;
+    }
+    
+    .municipality-tab.active {
+        color: #fff;
+        background: #003f7f;
+        border-color: #003f7f;
+    }
+    
+    /* Container de vistas */
+    .municipality-views-container {
+        flex: 1;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    
+    /* Vista de Lista - muy compacta */
+    .municipality-pro-list {
+        display: none;
+        flex-direction: row;
+        gap: 6px;
+        padding: 2px 0;
+        min-width: max-content;
+    }
+    
+    .municipality-pro-list.active {
+        display: flex;
+    }
+    
+    .municipality-pro-item {
+        background: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 6px;
+        padding: 6px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        transition: all 0.2s;
+        cursor: pointer;
+        min-width: 90px;
+        flex-shrink: 0;
+    }
+    
+    .municipality-pro-item:hover {
+        border-color: #003f7f;
+        background: #f8f9fa;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 63, 127, 0.12);
+    }
+    
+    .municipality-pro-name {
+        font-size: 8px;
+        font-weight: 700;
+        color: #555;
+        text-align: center;
+        line-height: 1.1;
+        max-width: 85px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .municipality-pro-value {
+        font-size: 11px;
+        font-weight: 900;
+        color: #003f7f;
+    }
+    
+    /* Barra de progreso muy delgada */
+    .municipality-progress-bar {
+        width: 100%;
+        height: 2px;
+        background: #f0f0f0;
+        border-radius: 1px;
+        overflow: hidden;
+        margin-top: 2px;
+    }
+    
+    .municipality-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #003f7f 0%, #0066cc 100%);
+        border-radius: 1px;
+        transition: width 0.5s ease;
+    }
+    
+    /* Vista de Ranking muy compacta */
+    .municipality-ranking-view {
+        display: none;
+        flex-direction: row;
+        gap: 8px;
+        padding: 2px 0;
+        min-width: max-content;
+    }
+    
+    .municipality-ranking-view.active {
+        display: flex;
+    }
+    
+    .ranking-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 6px;
+        padding: 6px 10px;
+        transition: all 0.2s;
+        cursor: pointer;
+        min-width: 140px;
+        flex-shrink: 0;
+    }
+    
+    .ranking-item:hover {
+        border-color: #003f7f;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 63, 127, 0.12);
+    }
+    
+    .ranking-position {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: 900;
+        flex-shrink: 0;
+    }
+    
+    .ranking-position.pos-1 {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        color: #856404;
+        box-shadow: 0 1px 4px rgba(255, 215, 0, 0.3);
+    }
+    
+    .ranking-position.pos-2 {
+        background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+        color: #666;
+        box-shadow: 0 1px 4px rgba(192, 192, 192, 0.3);
+    }
+    
+    .ranking-position.pos-3 {
+        background: linear-gradient(135deg, #cd7f32 0%, #e6a857 100%);
+        color: #fff;
+        box-shadow: 0 1px 4px rgba(205, 127, 50, 0.3);
+    }
+    
+    .ranking-position.pos-other {
+        background: #f0f0f0;
+        color: #999;
+        font-weight: 700;
+    }
+    
+    .ranking-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .ranking-municipality-name {
+        font-size: 9px;
+        font-weight: 700;
+        color: #333;
+    }
+    
+    .ranking-bar {
+        height: 3px;
+        background: #f0f0f0;
+        border-radius: 2px;
+        overflow: hidden;
+        width: 80px;
+    }
+    
+    .ranking-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #003f7f 0%, #0066cc 100%);
+        border-radius: 2px;
+        transition: width 0.5s ease;
+    }
+    
+    .ranking-value {
+        font-size: 10px;
+        font-weight: 900;
+        color: #003f7f;
+        min-width: 45px;
+        text-align: right;
+    }
+    
+    /* Vista Compacta */
+    .municipality-compact-view {
+        display: none;
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        gap: 5px;
+        padding: 2px 0;
+    }
+    
+    .municipality-compact-view.active {
+        display: grid;
+    }
+    
+    .compact-item {
+        background: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 4px;
+        padding: 6px 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+    
+    .compact-item:hover {
+        border-color: #003f7f;
+        background: #fafafa;
+        transform: translateY(-1px);
+    }
+    
+    .compact-item-name {
+        font-size: 8px;
+        font-weight: 700;
+        color: #555;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 75px;
+    }
+    
+    .compact-item-value {
+        font-size: 10px;
+        font-weight: 800;
+        color: #003f7f;
+    }
+    
+    /* Scrollbar muy delgado */
+    .municipality-views-container::-webkit-scrollbar {
+        height: 5px;
+    }
+    
+    .municipality-views-container::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 3px;
+    }
+    
+    .municipality-views-container::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    .municipality-views-container::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+    
+    /* Scrollbar personalizado sidebar */
+    .sidebar-professional::-webkit-scrollbar,
+    .municipality-pro-list::-webkit-scrollbar,
+    .no-coverage-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .sidebar-professional::-webkit-scrollbar-track,
+    .municipality-pro-list::-webkit-scrollbar-track,
+    .no-coverage-list::-webkit-scrollbar-track {
+        background: #f0f0f0;
+    }
+    
+    .sidebar-professional::-webkit-scrollbar-thumb,
+    .municipality-pro-list::-webkit-scrollbar-thumb,
+    .no-coverage-list::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    .sidebar-professional::-webkit-scrollbar-thumb:hover,
+    .municipality-pro-list::-webkit-scrollbar-thumb:hover,
+    .no-coverage-list::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+    
     .footer {
         background: linear-gradient(135deg, #003f7f 0%, #002a56 100%);
         color: #fff;
-        padding: 30px 40px;
+        padding: 20px 30px;
         margin-top: 0;
-        border-radius: 0 0 15px 15px;
     }
 
     .container {
       max-width: 1600px;
       margin: 0 auto;
-    }
-    
-    /* PANEL LATERAL */
-    #info-panel {
-      width: 550px;
-      background:linear-gradient(135deg,var(--azul-sec) 0%,var(--azul-prim) 100%);
-      box-shadow: -8px 0 30px rgba(0, 0, 0, 0.15);
-      display: flex;
-      flex-direction: column;
-      z-index: 10;
-      position: relative;
     }
     
     /* HEADER */
@@ -532,80 +1081,78 @@
     
     /* SECCIONES */
     .legend-section, .ausentes-section, .municipality-section {
-      margin: 25px 0;
+      margin: 0;
       background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      border: 2px solid var(--gris-borde);
+      border-radius: 10px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--gris-borde);
     }
     
     .section-title {
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 900;
       color: var(--azul-prim);
-      margin-bottom: 18px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      padding-bottom: 12px;
-      border-bottom: 3px solid var(--gris-borde);
+      letter-spacing: 0.5px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gris-borde);
     }
     
     .section-title::before {
       content: "";
-      width: 5px;
-      height: 24px;
+      width: 3px;
+      height: 16px;
       background: linear-gradient(180deg, var(--azul-sec), var(--azul-prim));
-      border-radius: 3px;
-      box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+      border-radius: 2px;
     }
     
     /* GRADIENTE */
     .gradient-bar {
-      height: 32px;
-      border-radius: 8px;
+      height: 24px;
+      border-radius: 6px;
       background: linear-gradient(90deg, #ff0000 0%, #ffff00 50%, #00ff00 100%);
-      border: 2px solid var(--gris-borde);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin: 15px 0;
+      border: 1px solid var(--gris-borde);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin: 8px 0;
     }
     
     .gradient-labels {
       display: flex;
       justify-content: space-between;
-      font-size: 11px;
+      font-size: 9px;
       color: #000;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 8px;
+      letter-spacing: 0.3px;
+      margin-top: 4px;
     }
     
     .beneficiarios-total {
       text-align: center;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 13px;
       color: var(--azul-prim);
-      margin-top: 15px;
-      padding: 12px;
+      margin-top: 8px;
+      padding: 8px;
       background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-      border-radius: 8px;
-      border: 2px solid #d0e0f7;
+      border-radius: 6px;
+      border: 1px solid #d0e0f7;
     }
     
     .leyenda-noident {
       text-align: center;
-      margin-top: 12px;
-      font-size: 13px;
+      margin-top: 8px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 12px;
-      border-radius: 8px;
-      border: 2px solid;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid;
       transition: all 0.3s ease;
-      animation: fadeIn 0.5s ease;
     }
     
     @keyframes fadeIn {
@@ -622,16 +1169,16 @@
     /* MUNICIPIOS AUSENTES */
     .ausentes-content {
       background: linear-gradient(135deg, #fff3cd, #ffe8a1);
-      border: 2px solid var(--amarillo);
-      border-left: 6px solid var(--naranja);
-      border-radius: 12px;
-      padding: 16px;
-      font-size: 13px;
-      line-height: 1.7;
+      border: 1px solid var(--amarillo);
+      border-left: 3px solid var(--naranja);
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 11px;
+      line-height: 1.5;
       color: #856404;
-      max-height: 180px;
+      max-height: 120px;
       overflow-y: auto;
-      box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+      box-shadow: 0 2px 6px rgba(255, 193, 7, 0.2);
     }
     
     .ausentes-content.vacio {
@@ -639,7 +1186,7 @@
       border-color: var(--verde);
       border-left-color: var(--verde);
       color: #155724;
-      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+      box-shadow: 0 2px 6px rgba(40, 167, 69, 0.2);
     }
     
     .ausentes-content strong {
@@ -653,46 +1200,8 @@
     
     /* LISTA DE MUNICIPIOS */
     .municipality-list {
-      max-height: 40vh;
+      max-height: 300px;
       overflow-y: auto;
-    }
-    
-    .municipality-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-      border: 2px solid var(--gris-borde);
-      border-left: 5px solid transparent;
-      border-radius: 12px;
-      padding: 14px 18px;
-      margin: 10px 0;
-      font-size: 13px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      cursor: pointer;
-    }
-    
-    .municipality-item:hover {
-      transform: translateX(6px) scale(1.02);
-      box-shadow: 0 6px 16px rgba(0, 102, 204, 0.2);
-      border-color: var(--azul-sec);
-      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-    }
-    
-    .municipality-item:active {
-      transform: translateX(6px) scale(0.98);
-    }
-    
-    .municipality-item strong {
-      font-size: 16px;
-      font-weight: 900;
-      color: var(--azul-prim);
-    }
-    
-    .municipality-item span {
-      font-weight: 700;
-      color: #000;
     }
     
     /* FOOTER */
@@ -993,7 +1502,8 @@
     </div>
 
     <div id="main-wrapper">
-        <!-- HEADER PRINCIPAL COMPLETO -->
+        <div class="padded-content">
+            <!-- HEADER PRINCIPAL COMPLETO -->
             <div class="header">
   <!-- LOGO IZQUIERDO -->
   <img src="https://apps2018.cobachih.edu.mx/assets/images/footerimg/LOGO%20GOBIERNO%20COLOR.png" alt="Gobierno del Estado de Chihuahua">
@@ -1008,81 +1518,126 @@
        alt="Logo SEDHBC"
        class="logo-der">
 </div>
+        </div>
 
-        <!-- CONTENEDOR DE PANEL Y MAPA -->
+        <!-- DISEÑO: SIDEBAR + MAPA (arriba) + BARRA (abajo separada) -->
         <div id="content-wrapper">
-            <!-- PANEL LATERAL IZQUIERDO -->
-            <div id="info-panel">
-                <div class="panel-content">
-<!-- CONTROLES -->
-        <div class="controls">
-          <div class="controls-row">
-            <label for="yearSelect">📅 Año:</label>
-            <select id="yearSelect">
-        <option value="2024">2024</option>
-        <option value="2025" selected>2025</option>
-      </select>
-          </div>
-          <div class="controls-row">
-            <label for="institutionSelect">🏛️ Institución:</label>
-            <select id="institutionSelect"></select>
-          </div>
-          <div class="controls-row">
-            <label for="programSelect">📋 Programa:</label>
-            <select id="programSelect"></select>
-          </div>
-        </div>
+            
+            <div class="padded-content">
+                <!-- ÁREA PRINCIPAL: SIDEBAR + MAPA -->
+                <div class="main-content-area">
+                
+                <!-- SIDEBAR PROFESIONAL -->
+                <div class="sidebar-professional">
+                  
+                  <!-- CONTROLES -->
+                  <div class="control-section">
+                    <div class="control-section-title">Filtros</div>
+                    
+                    <div class="control-group">
+                      <label for="yearSelect">Año</label>
+                      <select id="yearSelect">
+                        <option value="2024">2024</option>
+                        <option value="2025" selected>2025</option>
+                      </select>
+                    </div>
+                    
+                    <div class="control-group">
+                      <label for="institutionSelect">Institución</label>
+                      <select id="institutionSelect"></select>
+                    </div>
+                    
+                    <div class="control-group">
+                      <label for="programSelect">Programa</label>
+                      <select id="programSelect"></select>
+                    </div>
+                  </div>
 
-        <!-- ESTADÍSTICAS -->
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span id="statTotal" class="stat-value">–</span>
-            <span class="stat-label">Total beneficiarios únicos</span>
-          </div>
-          <div class="stat-card">
-            <span id="statMunicipios" class="stat-value">–</span>
-            <span class="stat-label">Municipios con cobertura</span>
-          </div>
-          <div class="stat-card">
-            <span id="statCobertura" class="stat-value">–</span>
-            <span class="stat-label">Cobertura territorial</span>
-          </div>
-          <div class="stat-card">
-            <span id="statCapital" class="stat-value">–</span>
-            <span class="stat-label">Concentración capital</span>
-          </div>
-        </div>
+                  <!-- ESTADÍSTICAS -->
+                  <div class="stats-section">
+                    <div class="control-section-title">Estadísticas</div>
+                    <div class="stats-professional">
+                      <div class="stat-pro">
+                        <span id="statTotal" class="stat-pro-value">–</span>
+                        <span class="stat-pro-label">Beneficiarios</span>
+                      </div>
+                      <div class="stat-pro">
+                        <span id="statMunicipios" class="stat-pro-value">–</span>
+                        <span class="stat-pro-label">Municipios</span>
+                      </div>
+                      <div class="stat-pro">
+                        <span id="statCobertura" class="stat-pro-value">–</span>
+                        <span class="stat-pro-label">Cobertura</span>
+                      </div>
+                      <div class="stat-pro">
+                        <span id="statCapital" class="stat-pro-value">–</span>
+                        <span class="stat-pro-label">Capital</span>
+                      </div>
+                    </div>
+                  </div>
 
-        <!-- LEYENDA -->
-        <div class="legend-section">
-          <h3 class="section-title">Escala de intensidad</h3>
-          <div class="gradient-bar"></div>
-          <div class="gradient-labels">
-            <span>Mínima</span>
-            <span>Media</span>
-            <span>Máxima</span>
-          </div>
-          <div id="benefTotal" class="beneficiarios-total"></div>
-        </div>
+                  <!-- LEYENDA -->
+                  <div class="legend-professional">
+                    <div class="legend-pro-title">Escala de Intensidad</div>
+                    <div class="gradient-professional"></div>
+                    <div class="gradient-pro-labels">
+                      <span>Mínima</span>
+                      <span>Media</span>
+                      <span>Máxima</span>
+                    </div>
+                    <div class="total-beneficiarios-pro">
+                      <span id="benefTotal" class="total-benef-number">0</span>
+                      <span class="total-benef-label">Total de Beneficiarios</span>
+                    </div>
+                  </div>
 
-        <!-- MUNICIPIOS AUSENTES -->
-        <div class="ausentes-section">
-          <h3 class="section-title">Municipios sin cobertura</h3>
-          <div id="municipiosAusentes" class="ausentes-content"></div>
-        </div>
-
-        <!-- LISTA DE MUNICIPIOS -->
-        <div class="municipality-section">
-          <h3 class="section-title">Distribución por municipio</h3>
-          <div class="municipality-list" id="municipalityList"></div>
-        </div>
+                  <!-- SIN COBERTURA -->
+                  <div class="no-coverage-section">
+                    <div class="no-coverage-header">
+                      <div class="no-coverage-title">Sin Cobertura</div>
+                      <div class="no-coverage-badge" id="noCoverageBadge">0/67</div>
+                    </div>
+                    <div id="municipiosAusentes" class="no-coverage-list"></div>
+                  </div>
+                  
                 </div>
+                
+                <!-- MAPA PROFESIONAL -->
+                <div id="map-container">
+                    <div id="map"></div>
+                </div>
+                
+            </div>
+            <!-- Cierre de padded-content -->
+            
+            <!-- BARRA INFERIOR - MUNICIPIOS (fuera del padding, ancho completo) -->
+            <div class="bottom-municipalities-bar">
+              <div class="municipalities-section">
+                <div class="municipalities-header">
+                  <div class="municipalities-title">📍 Distribución por Municipio</div>
+                  
+                  <!-- Tabs -->
+                  <div class="municipality-tabs">
+                    <button class="municipality-tab active" data-view="list">📋 Lista</button>
+                    <button class="municipality-tab" data-view="ranking">🏆 Top 10</button>
+                    <button class="municipality-tab" data-view="compact">🔲 Compacto</button>
+                  </div>
+                </div>
+                
+                <!-- Container con scroll horizontal -->
+                <div class="municipality-views-container">
+                  <!-- Vista Lista -->
+                  <div class="municipality-pro-list active" id="municipalityList"></div>
+                  
+                  <!-- Vista Ranking -->
+                  <div class="municipality-ranking-view" id="municipalityRanking"></div>
+                  
+                  <!-- Vista Compacta -->
+                  <div class="municipality-compact-view" id="municipalityCompact"></div>
+                </div>
+              </div>
             </div>
             
-            <!-- MAPA A LA DERECHA -->
-            <div id="map-container">
-                <div id="map"></div>
-            </div>
         </div>
 
         <!-- FOOTER -->
@@ -1721,8 +2276,8 @@
 
     // ===== MAPA =====
     const map = L.map("map", {
-      center: [28.6, -106.5],
-      zoom: 7,
+      center: [28.8, -106.1],
+      zoom: 7.8,
       zoomControl: false,        // Sin controles de zoom
       dragging: false,           // Sin arrastre
       scrollWheelZoom: false,    // Sin zoom con scroll
@@ -1730,8 +2285,8 @@
       touchZoom: false,          // Sin zoom táctil
       boxZoom: false,            // Sin zoom por área
       keyboard: false,           // Sin navegación por teclado
-      minZoom: 7,              // Zoom mínimo
-      maxZoom: 7               // Zoom máximo (fijo)
+      minZoom: 7.8,              // Zoom mínimo
+      maxZoom: 7.8               // Zoom máximo (fijo)
     });
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap contributors"
@@ -1813,7 +2368,7 @@ function render(preserveView = false) {
         document.getElementById("statCobertura").textContent = "0%";
         document.getElementById("statCapital").textContent = "0%";
         document.getElementById("benefTotal").innerHTML = `Total de beneficiarios: ${(p.total || 0).toLocaleString("es-MX")} · <span style="color:#6c757d">Sin datos por municipio</span>`;
-        document.getElementById("municipalityList").innerHTML = `<div class="municipality-item" style="justify-content:center"><em style="color:#6c757d">Este programa no tiene datos desagregados por municipio.</em></div>`;
+        document.getElementById("municipalityList").innerHTML = `<div class="municipality-pro-item" style="justify-content:center; border-left-color: transparent;"><em style="color:#999; font-size: 11px;">Este programa no tiene datos desagregados por municipio.</em></div>`;
         document.getElementById("municipiosAusentes").innerHTML = `<em>No hay datos municipales disponibles para análisis.</em>`;
         document.getElementById("municipiosAusentes").className = "ausentes-content";
         layer.clearLayers();
@@ -1878,12 +2433,18 @@ function render(preserveView = false) {
 
       const totalSinCobertura = municipiosAusentes.length + municipiosCero.length;
       const ausentesDiv = document.getElementById("municipiosAusentes");
+      const badgeDiv = document.getElementById("noCoverageBadge");
+      
+      // Actualizar badge
+      if (badgeDiv) {
+        badgeDiv.textContent = `${totalSinCobertura}/67`;
+      }
 
       if (totalSinCobertura === 0) {
-        ausentesDiv.className = "ausentes-content vacio";
-        ausentesDiv.innerHTML = `✓ <strong>¡Cobertura completa!</strong> Los 67 municipios tienen beneficiarios registrados.`;
+        ausentesDiv.className = "no-coverage-list";
+        ausentesDiv.innerHTML = `✓ <strong style="color: #28a745;">¡Cobertura completa!</strong><br>Los 67 municipios tienen beneficiarios registrados.`;
       } else {
-        ausentesDiv.className = "ausentes-content";
+        ausentesDiv.className = "no-coverage-list";
         let html = `<strong>${totalSinCobertura} de 67 municipios sin cobertura:</strong><br><br>`;
 
         if (municipiosAusentes.length > 0) {
@@ -1942,13 +2503,28 @@ function render(preserveView = false) {
         bounds.push(coords[m]);
       });
 
-      // Lista lateral CON FUNCIONALIDAD DE CLICK
-      entries.sort((a, b) => b[1] - a[1]).forEach(([m, v]) => {
+      // Lista lateral CON FUNCIONALIDAD DE CLICK - FORMATO HORIZONTAL
+      const sortedEntries = entries.sort((a, b) => b[1] - a[1]);
+      
+      // Guardar datos para las vistas alternativas
+      currentMunicipalityData = sortedEntries;
+      
+      // Calcular valor máximo para las barras de progreso
+      const maxValue = sortedEntries[0]?.[1] || 1;
+      
+      sortedEntries.forEach(([m, v]) => {
         const c = colorRGY(v, Math.max(1, minAll), Math.max(1, maxAll));
+        const percentage = (v / maxValue) * 100;
+        
         const row = document.createElement("div");
-        row.className = "municipality-item";
-        row.style.borderLeftColor = c;
-        row.innerHTML = `<span>${m}</span><strong>${v.toLocaleString("es-MX")}</strong>`;
+        row.className = "municipality-pro-item";
+        row.innerHTML = `
+          <span class="municipality-pro-name">${m}</span>
+          <strong class="municipality-pro-value">${v.toLocaleString("es-MX")}</strong>
+          <div class="municipality-progress-bar">
+            <div class="municipality-progress-fill" style="width: ${percentage}%"></div>
+          </div>
+        `;
         
         // ===== AGREGAR EVENTO CLICK =====
         row.addEventListener("click", () => {
@@ -2634,7 +3210,93 @@ document.addEventListener('keypress', function(e) {
 });
 
 // Triple clic en título
+// ============================================
+// TABS DE VISUALIZACIÓN DE MUNICIPIOS
+// ============================================
+let currentMunicipalityData = [];
+
+function initMunicipalityTabs() {
+  const tabs = document.querySelectorAll('.municipality-tab');
+  const views = {
+    list: document.getElementById('municipalityList'),
+    ranking: document.getElementById('municipalityRanking'),
+    compact: document.getElementById('municipalityCompact')
+  };
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Actualizar tabs activos
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      // Mostrar vista correspondiente
+      const viewType = tab.dataset.view;
+      Object.keys(views).forEach(key => {
+        if (views[key]) {
+          views[key].classList.remove('active');
+          if (key === viewType) {
+            views[key].classList.add('active');
+          }
+        }
+      });
+      
+      // Renderizar vista si es necesario
+      if (viewType === 'ranking') {
+        renderRankingView(currentMunicipalityData);
+      } else if (viewType === 'compact') {
+        renderCompactView(currentMunicipalityData);
+      }
+    });
+  });
+}
+
+function renderRankingView(data) {
+  const container = document.getElementById('municipalityRanking');
+  if (!container || !data || data.length === 0) return;
+  
+  const top10 = data.slice(0, 10);
+  const maxValue = top10[0]?.[1] || 1;
+  
+  container.innerHTML = top10.map(([name, value], index) => {
+    const position = index + 1;
+    let posClass = 'pos-other';
+    if (position === 1) posClass = 'pos-1';
+    else if (position === 2) posClass = 'pos-2';
+    else if (position === 3) posClass = 'pos-3';
+    
+    const percentage = (value / maxValue) * 100;
+    
+    return `
+      <div class="ranking-item" onclick="zoomToMunicipality('${name}')">
+        <div class="ranking-position ${posClass}">${position}</div>
+        <div class="ranking-info">
+          <div class="ranking-municipality-name">${name}</div>
+          <div class="ranking-bar">
+            <div class="ranking-bar-fill" style="width: ${percentage}%"></div>
+          </div>
+        </div>
+        <div class="ranking-value">${value.toLocaleString('es-MX')}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderCompactView(data) {
+  const container = document.getElementById('municipalityCompact');
+  if (!container || !data || data.length === 0) return;
+  
+  container.innerHTML = data.map(([name, value]) => `
+    <div class="compact-item" onclick="zoomToMunicipality('${name}')">
+      <span class="compact-item-name">${name}</span>
+      <span class="compact-item-value">${value.toLocaleString('es-MX')}</span>
+    </div>
+  `).join('');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  // Inicializar tabs de municipios
+  initMunicipalityTabs();
+  
   setTimeout(() => {
     const title = document.querySelector('h1, .page-title, .section-title');
     if (title) {
